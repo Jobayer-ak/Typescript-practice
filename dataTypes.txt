@@ -1,0 +1,10 @@
+################### day - 1
+1. string
+2. number
+3. boolean
+4. any
+5. union ---> E.g.-> string | number | boolean
+6. RegEx ---> Regular expression type
+
+################### day - 2
+7.
