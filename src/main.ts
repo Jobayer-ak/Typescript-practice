@@ -1,103 +1,144 @@
+//########################### Turorial - 5
+// Type Assertion
+// Aliases
+type One = string;
+type Two = string | number;
+type Three = 'hello';
+
+// convert to maore or less specific
+let a: One = 'hello';
+let b = a as Two; // less specific
+let c = a as Three; // more specific
+
+let d = <One>'world'; // its not allowed in tsx file
+let e = <string | number>'world'; // its not allowed in tsx file
+
+const addOrConcat = (
+  a: number,
+  b: number,
+  c: 'add' | 'concat'
+): number | string => {
+  if (c === 'add') return a + b;
+  return '' + a + b;
+};
+
+let myVal: string = addOrConcat(2, 2, 'concat') as string; // type assertion
+
+// Be careful! TS sess no problem - but a string is returned
+let nextVal: number = addOrConcat(2, 2, 'concat') as number;
+
+// 10 as string;
+10 as unknown as string; // double casting or forced casting
+
+// The DOM (Document Object Mode)
+const img = document.querySelector('img')!;
+const myImg = document.getElementById('#img') as HTMLImageElement; // "!" is called non nulll assertion
+const nextImg = <HTMLImageElement>document.getElementById('#img'); 
+
+img.src;
+myImg.src;
+
+//############################ Tutorial - 4
 //*** Type Aliases
-type stringOrNumber = string | number;
+// type stringOrNumber = string | number;
 
-type stringOrNumberArray = (string | number)[];
+// type stringOrNumberArray = (string | number)[];
 
-type Guitarist = {
-  name?: string;
-  active: boolean;
-  albums: stringOrNumberArray;
-};
+// type Guitarist = {
+//   name?: string;
+//   active: boolean;
+//   albums: stringOrNumberArray;
+// };
 
-type UserId = stringOrNumber;
+// type UserId = stringOrNumber;
 
-// Literal types
-let myName: 'Depp' | 'Johnny';
-myName = 'Johnny';
+// // Literal types
+// let myName: 'Depp' | 'Johnny';
+// myName = 'Johnny';
 
-let userName: 'Tom' | 'Keanu' | 'Ribs';
-userName = 'Keanu';
+// let userName: 'Tom' | 'Keanu' | 'Ribs';
+// userName = 'Keanu';
 
-// functions
-const add = (a: number, b: number): number => {
-  return a + b;
-};
+// // functions
+// const add = (a: number, b: number): number => {
+//   return a + b;
+// };
 
-const logMsg = (message: any): void => {
-  console.log(message);
-};
+// const logMsg = (message: any): void => {
+//   console.log(message);
+// };
 
-logMsg('hello');
-logMsg(add(2, 3));
-logMsg('hello1');
+// logMsg('hello');
+// logMsg(add(2, 3));
+// logMsg('hello1');
 
-let subtract = function (c: number, d: number): number {
-  return c - d;
-};
+// let subtract = function (c: number, d: number): number {
+//   return c - d;
+// };
 
-// type mathFunction = (a: number, b: number) => number;
-interface mathFunction {
-  (a: number, b: number): number;
-}
+// // type mathFunction = (a: number, b: number) => number;
+// interface mathFunction {
+//   (a: number, b: number): number;
+// }
 
-let multiply: mathFunction = function (c, d) {
-  return c * d;
-};
+// let multiply: mathFunction = function (c, d) {
+//   return c * d;
+// };
 
-logMsg(multiply(2, 2));
+// logMsg(multiply(2, 2));
 
-// optional parameters
-const addAll = (a: number, b: number, c?: number): number => {
-  if (typeof c !== 'undefined') {
-    return a + b + c;
-  }
+// // optional parameters
+// const addAll = (a: number, b: number, c?: number): number => {
+//   if (typeof c !== 'undefined') {
+//     return a + b + c;
+//   }
 
-  return a + b;
-};
+//   return a + b;
+// };
 
-// default parameter value
-const sumAll = (a: number = 10, b: number, c: number = 2): number => {
-  return a + b + c;
-};
+// // default parameter value
+// const sumAll = (a: number = 10, b: number, c: number = 2): number => {
+//   return a + b + c;
+// };
 
-logMsg(addAll(2, 3, 2));
-logMsg(addAll(2, 3));
-logMsg(sumAll(2, 3));
-logMsg(sumAll(undefined, 3));
+// logMsg(addAll(2, 3, 2));
+// logMsg(addAll(2, 3));
+// logMsg(sumAll(2, 3));
+// logMsg(sumAll(undefined, 3));
 
-// rest parameters
-const total = (a: number, ...nums: number[]): number => {
-  return a + nums.reduce((prev, curr) => prev + curr);
-};
+// // rest parameters
+// const total = (a: number, ...nums: number[]): number => {
+//   return a + nums.reduce((prev, curr) => prev + curr);
+// };
 
-logMsg(total(1, 2));
+// logMsg(total(1, 2));
 
-const createError = (errMsg: string): never => {
-  throw new Error(errMsg);
-};
+// const createError = (errMsg: string): never => {
+//   throw new Error(errMsg);
+// };
 
-const infinite = () => {
-  let i: number = 1;
-  while (true) {
-    i++;
-    if (i > 100) break;
-  }
-};
+// const infinite = () => {
+//   let i: number = 1;
+//   while (true) {
+//     i++;
+//     if (i > 100) break;
+//   }
+// };
 
-// custom type guard
-const isNumber = (value: any): boolean => {
-  return typeof value === 'number' ? true : false;
-};
+// // custom type guard
+// const isNumber = (value: any): boolean => {
+//   return typeof value === 'number' ? true : false;
+// };
 
-// use of the never type
-const numberOrString = (value: number | string): string => {
-  if (typeof value === 'string') return 'string';
-  if (isNumber(value)) return 'number';
+// // use of the never type
+// const numberOrString = (value: number | string): string => {
+//   if (typeof value === 'string') return 'string';
+//   if (isNumber(value)) return 'number';
 
-  return createError('This should never happen!');
-};
+//   return createError('This should never happen!');
+// };
 
-infinite();
+// infinite();
 
 //##########################/ Turotial-3
 // let stringgArr = ['one', 'hey', 'Jobayer'];

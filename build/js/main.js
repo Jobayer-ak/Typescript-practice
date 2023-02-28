@@ -1,70 +1,103 @@
 "use strict";
-// Literal types
-let myName;
-myName = 'Johnny';
-let userName;
-userName = 'Keanu';
-// functions
-const add = (a, b) => {
-    return a + b;
+// convert to maore or less specific
+let a = 'hello';
+let b = a; // less specific
+let c = a; // more specific
+let d = 'world'; // its not allowed in tsx file
+let e = 'world'; // its not allowed in tsx file
+const addOrConcat = (a, b, c) => {
+    if (c === 'add')
+        return a + b;
+    return '' + a + b;
 };
-const logMsg = (message) => {
-    console.log(message);
-};
-logMsg('hello');
-logMsg(add(2, 3));
-logMsg('hello1');
-let subtract = function (c, d) {
-    return c - d;
-};
-let multiply = function (c, d) {
-    return c * d;
-};
-logMsg(multiply(2, 2));
-// optional parameters
-const addAll = (a, b, c) => {
-    if (typeof c !== 'undefined') {
-        return a + b + c;
-    }
-    return a + b;
-};
-// default parameter value
-const sumAll = (a = 10, b, c = 2) => {
-    return a + b + c;
-};
-logMsg(addAll(2, 3, 2));
-logMsg(addAll(2, 3));
-logMsg(sumAll(2, 3));
-logMsg(sumAll(undefined, 3));
-// rest parameters
-const total = (a, ...nums) => {
-    return a + nums.reduce((prev, curr) => prev + curr);
-};
-logMsg(total(1, 2));
-const createError = (errMsg) => {
-    throw new Error(errMsg);
-};
-const infinite = () => {
-    let i = 1;
-    while (true) {
-        i++;
-        if (i > 100)
-            break;
-    }
-};
-// custom type guard
-const isNumber = (value) => {
-    return typeof value === 'number' ? true : false;
-};
-// use of the never type
-const numberOrString = (value) => {
-    if (typeof value === 'string')
-        return 'string';
-    if (isNumber(value))
-        return 'number';
-    return createError('This should never happen!');
-};
-infinite();
+let myVal = addOrConcat(2, 2, 'concat'); // type assertion
+// Be careful! TS sess no problem - but a string is returned
+let nextVal = addOrConcat(2, 2, 'concat');
+// 10 as string;
+10; // double casting or forced casting
+// The DOM (Document Object Mode)
+const img = document.querySelector('img');
+const myImg = document.getElementById('#img'); // "!" is called non nulll assertion
+const nextImg = document.getElementById('#img');
+img.src;
+myImg.src;
+//############################ Tutorial - 4
+//*** Type Aliases
+// type stringOrNumber = string | number;
+// type stringOrNumberArray = (string | number)[];
+// type Guitarist = {
+//   name?: string;
+//   active: boolean;
+//   albums: stringOrNumberArray;
+// };
+// type UserId = stringOrNumber;
+// // Literal types
+// let myName: 'Depp' | 'Johnny';
+// myName = 'Johnny';
+// let userName: 'Tom' | 'Keanu' | 'Ribs';
+// userName = 'Keanu';
+// // functions
+// const add = (a: number, b: number): number => {
+//   return a + b;
+// };
+// const logMsg = (message: any): void => {
+//   console.log(message);
+// };
+// logMsg('hello');
+// logMsg(add(2, 3));
+// logMsg('hello1');
+// let subtract = function (c: number, d: number): number {
+//   return c - d;
+// };
+// // type mathFunction = (a: number, b: number) => number;
+// interface mathFunction {
+//   (a: number, b: number): number;
+// }
+// let multiply: mathFunction = function (c, d) {
+//   return c * d;
+// };
+// logMsg(multiply(2, 2));
+// // optional parameters
+// const addAll = (a: number, b: number, c?: number): number => {
+//   if (typeof c !== 'undefined') {
+//     return a + b + c;
+//   }
+//   return a + b;
+// };
+// // default parameter value
+// const sumAll = (a: number = 10, b: number, c: number = 2): number => {
+//   return a + b + c;
+// };
+// logMsg(addAll(2, 3, 2));
+// logMsg(addAll(2, 3));
+// logMsg(sumAll(2, 3));
+// logMsg(sumAll(undefined, 3));
+// // rest parameters
+// const total = (a: number, ...nums: number[]): number => {
+//   return a + nums.reduce((prev, curr) => prev + curr);
+// };
+// logMsg(total(1, 2));
+// const createError = (errMsg: string): never => {
+//   throw new Error(errMsg);
+// };
+// const infinite = () => {
+//   let i: number = 1;
+//   while (true) {
+//     i++;
+//     if (i > 100) break;
+//   }
+// };
+// // custom type guard
+// const isNumber = (value: any): boolean => {
+//   return typeof value === 'number' ? true : false;
+// };
+// // use of the never type
+// const numberOrString = (value: number | string): string => {
+//   if (typeof value === 'string') return 'string';
+//   if (isNumber(value)) return 'number';
+//   return createError('This should never happen!');
+// };
+// infinite();
 //##########################/ Turotial-3
 // let stringgArr = ['one', 'hey', 'Jobayer'];
 // let guiters = ['Strat', 'Les Paul', 5150];
