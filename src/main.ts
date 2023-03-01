@@ -1,42 +1,166 @@
-//########################### Turorial - 5
-// Type Assertion
-// Aliases
-type One = string;
-type Two = string | number;
-type Three = 'hello';
+//############################# Tutorial - 6
+// Typescript Classes
+class Coder {
+  secondLang!: string;
 
-// convert to maore or less specific
-let a: One = 'hello';
-let b = a as Two; // less specific
-let c = a as Three; // more specific
+  constructor(
+    public name: string,
+    readonly music: string,
+    private age: number,
+    protected lang: string = 'Typescript'
+  ) {
+    this.name = name;
+    this.music = music;
+    this.age = age;
+    this.lang = lang;
+  }
 
-let d = <One>'world'; // its not allowed in tsx file
-let e = <string | number>'world'; // its not allowed in tsx file
+  public getAge() {
+    return `Hell, I am ${this.age}`;
+  }
+}
 
-const addOrConcat = (
-  a: number,
-  b: number,
-  c: 'add' | 'concat'
-): number | string => {
-  if (c === 'add') return a + b;
-  return '' + a + b;
-};
+const Depp = new Coder('Johny', 'Rock', 42);
 
-let myVal: string = addOrConcat(2, 2, 'concat') as string; // type assertion
+console.log(Depp.getAge());
+// console.log(Depp.age)
+// console.log(Depp.lang);
 
-// Be careful! TS sess no problem - but a string is returned
-let nextVal: number = addOrConcat(2, 2, 'concat') as number;
+class WebDev extends Coder {
+  constructor(
+    public computer: string,
+    name: string,
+    music: string,
+    age: number
+  ) {
+    super(name, music, age);
+    this.computer = computer;
+  }
 
-// 10 as string;
-10 as unknown as string; // double casting or forced casting
+  public getLang() {
+    return `I write ${this.lang}`;
+  }
+}
 
-// The DOM (Document Object Mode)
-const img = document.querySelector('img')!;
-const myImg = document.getElementById('#img') as HTMLImageElement; // "!" is called non nulll assertion
-const nextImg = <HTMLImageElement>document.getElementById('#img'); 
+const Sara = new WebDev('Mac', 'Sara', 'Lofi', 25);
+console.log(Sara.getLang());
+// console.log(Sara.age);
+// console.log(Sara.lang);
 
-img.src;
-myImg.src;
+// interface in class
+interface Musician {
+  name: string;
+  instrument: string;
+  play(action: string): string;
+}
+
+class Guitarist implements Musician {
+  name: string;
+  instrument: string;
+
+  constructor(name: string, instrument: string) {
+    this.name = name;
+    this.instrument = instrument;
+  }
+
+  play(action: string): string {
+    return `${this.name} ${action} the ${this.instrument}`;
+  }
+}
+
+const Page = new Guitarist('Jimmy', 'guitar');
+console.log(Page.play('strums'));
+
+////////////////////////////////////////////
+class Peeps {
+  static count: number = 0;
+
+  static getCount(): number {
+    return Peeps.count;
+  }
+
+  public id: number;
+  constructor(public name: string) {
+    this.name = name;
+    this.id = ++Peeps.count;
+  }
+}
+
+const John = new Peeps('John');
+const Steve = new Peeps('Steve');
+const Ammy = new Peeps('AMy');
+
+console.log(Ammy.id);
+console.log(Steve.id);
+console.log(John.id);
+console.log(Peeps.count);
+
+///////////////////////////////////
+class Bands {
+  private dataState: string[];
+
+  constructor() {
+    this.dataState = [];
+  }
+
+  public get data(): string[] {
+    return this.dataState;
+  }
+
+  public set data(value: string[]) {
+    if (Array.isArray(value) && value.every((el) => typeof el === 'string')) {
+      this.dataState = value;
+      return;
+    } else trow new Error("Param is not an array of strings")
+  }
+}
+
+const MyBands = new Bands() 
+MyBands.data = ["Neil Young", "Led Zep"]
+console.log(MyBands.data);
+MyBands.data = ["Van Halen", 5150];
+
+// write a blog introductin on javascript
+
+// //########################### Turorial - 5
+// // Type Assertion
+// // Aliases
+// type One = string;
+// type Two = string | number;
+// type Three = 'hello';
+
+// // convert to maore or less specific
+// let a: One = 'hello';
+// let b = a as Two; // less specific
+// let c = a as Three; // more specific
+
+// let d = <One>'world'; // its not allowed in tsx file
+// let e = <string | number>'world'; // its not allowed in tsx file
+
+// const addOrConcat = (
+//   a: number,
+//   b: number,
+//   c: 'add' | 'concat'
+// ): number | string => {
+//   if (c === 'add') return a + b;
+//   return '' + a + b;
+// };
+
+// let myVal: string = addOrConcat(2, 2, 'concat') as string; // type assertion
+
+// // Be careful! TS sess no problem - but a string is returned
+// let nextVal: number = addOrConcat(2, 2, 'concat') as number;
+
+// // 10 as string;
+// 10 as unknown as string; // double casting or forced casting
+
+// // The DOM (Document Object Mode)
+// const img = document.querySelector('img')!;
+// const myImg = document.getElementById('#img') as HTMLImageElement; // "!" is called non nulll assertion
+// const nextImg = <HTMLImageElement>document.getElementById('#img');
+
+// img.src;
+// myImg.src;
 
 //############################ Tutorial - 4
 //*** Type Aliases
