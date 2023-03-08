@@ -1,89 +1,171 @@
 "use strict";
+//############################# Tutorial - 8
+//
+// //############################ Tutorial - 7
+// // index signature
+// // interface TransactionObj {
+// //   readonly [index: string]: number;
+// // }
+// interface TransactionObj {
+//   readonly [index: string]: number;
+//   Pizza: number;
+//   Books: number;
+//   Job: number;
+// }
+// const todaysTransactions: TransactionObj = {
+//   Pizza: -10,
+//   Books: -5,
+//   Job: 50,
+//   // Dave: 42,
+// };
+// console.log(todaysTransactions.Pizza);
+// console.log(todaysTransactions['Pizza']);
+// let prop: string = 'Pizza';
+// console.log(todaysTransactions[prop]);
+// const todaysNet = (transactions: TransactionObj): number => {
+//   let total = 0;
+//   for (const transaction in transactions) {
+//     total += transactions[transaction];
+//   }
+//   return total;
+// };
+// // console.log(todaysTransactions['Dave']);
+// ///////////////////////////////////////////////////
+// interface Student {
+//   // [key: string]: string | number | number[] | undefined;
+//   name: string;
+//   GPA: number;
+//   classes?: number[];
+// }
+// const student: Student = {
+//   name: 'Doug',
+//   GPA: 3.5,
+//   classes: [100, 200],
+// };
+// // console.log(student.test);
+// for (const key in student) {
+//   console.log(`${key}: ${student[key as keyof Student]}`);
+// }
+// Object.keys(student).map((key) => {
+//   console.log(student[key as keyof typeof student]);
+// });
+// const logStudentKey = (student: Student, key: keyof Student): void => {
+//   console.log(`Student ${key}: ${student[key]}`);
+// };
+// logStudentKey(student, 'name');
+// ///////////////////////////////////////
+// // interface Incomes {
+// //   [key: string]: number;
+// // }
+// type Streams = 'salary' | 'bonus' | 'sidehustle';
+// type Incomes = Record<Streams, number | string>;
+// const monthlyIncomes: Incomes = {
+//   salary: 500,
+//   bonus: 100,
+//   sidehustle: 250,
+// };
+// for (const revenue in monthlyIncomes) {
+//   console.log(monthlyIncomes[revenue as keyof Incomes]);
+// }
 //############################# Tutorial - 6
 // Typescript Classes
-class Coder {
-    constructor(name, music, age, lang = 'Typescript') {
-        this.name = name;
-        this.music = music;
-        this.age = age;
-        this.lang = lang;
-        this.name = name;
-        this.music = music;
-        this.age = age;
-        this.lang = lang;
-    }
-    getAge() {
-        return `Hell, I am ${this.age}`;
-    }
-}
-const Depp = new Coder('Johny', 'Rock', 42);
-console.log(Depp.getAge());
-// console.log(Depp.age)
-// console.log(Depp.lang);
-class WebDev extends Coder {
-    constructor(computer, name, music, age) {
-        super(name, music, age);
-        this.computer = computer;
-        this.computer = computer;
-    }
-    getLang() {
-        return `I write ${this.lang}`;
-    }
-}
-const Sara = new WebDev('Mac', 'Sara', 'Lofi', 25);
-console.log(Sara.getLang());
-class Guitarist {
-    constructor(name, instrument) {
-        this.name = name;
-        this.instrument = instrument;
-    }
-    play(action) {
-        return `${this.name} ${action} the ${this.instrument}`;
-    }
-}
-const Page = new Guitarist('Jimmy', 'guitar');
-console.log(Page.play('strums'));
-////////////////////////////////////////////
-class Peeps {
-    static getCount() {
-        return Peeps.count;
-    }
-    constructor(name) {
-        this.name = name;
-        this.name = name;
-        this.id = ++Peeps.count;
-    }
-}
-Peeps.count = 0;
-const John = new Peeps('John');
-const Steve = new Peeps('Steve');
-const Ammy = new Peeps('AMy');
-console.log(Ammy.id);
-console.log(Steve.id);
-console.log(John.id);
-console.log(Peeps.count);
-///////////////////////////////////
-class Bands {
-    constructor() {
-        this.dataState = [];
-    }
-    get data() {
-        return this.dataState;
-    }
-    set data(value) {
-        if (Array.isArray(value) && value.every((el) => typeof el === 'string')) {
-            this.dataState = value;
-            return;
-        }
-        else
-            trow;
-        new Error("Param is not an array of strings");
-    }
-}
-const MyBands = new Bands();
-MyBands.data = ["Neil Young", "Led Zep"];
-console.log(MyBands.data);
-MyBands.data = ["Van Halen", 5150];
+// class Coder {
+//   secondLang!: string;
+//   constructor(
+//     public name: string,
+//     readonly music: string,
+//     private age: number,
+//     protected lang: string = 'Typescript'
+//   ) {
+//     this.name = name;
+//     this.music = music;
+//     this.age = age;
+//     this.lang = lang;
+//   }
+//   public getAge() {
+//     return `Hell, I am ${this.age}`;
+//   }
+// }
+// const Depp = new Coder('Johny', 'Rock', 42);
+// console.log(Depp.getAge());
+// // console.log(Depp.age)
+// // console.log(Depp.lang);
+// class WebDev extends Coder {
+//   constructor(
+//     public computer: string,
+//     name: string,
+//     music: string,
+//     age: number
+//   ) {
+//     super(name, music, age);
+//     this.computer = computer;
+//   }
+//   public getLang() {
+//     return `I write ${this.lang}`;
+//   }
+// }
+// const Sara = new WebDev('Mac', 'Sara', 'Lofi', 25);
+// console.log(Sara.getLang());
+// // console.log(Sara.age);
+// // console.log(Sara.lang);
+// // interface in class
+// interface Musician {
+//   name: string;
+//   instrument: string;
+//   play(action: string): string;
+// }
+// class Guitarist implements Musician {
+//   name: string;
+//   instrument: string;
+//   constructor(name: string, instrument: string) {
+//     this.name = name;
+//     this.instrument = instrument;
+//   }
+//   play(action: string): string {
+//     return `${this.name} ${action} the ${this.instrument}`;
+//   }
+// }
+// const Page = new Guitarist('Jimmy', 'guitar');
+// console.log(Page.play('strums'));
+// ////////////////////////////////////////////
+// class Peeps {
+//   static count: number = 0;
+//   static getCount(): number {
+//     return Peeps.count;
+//   }
+//   public id: number;
+//   constructor(public name: string) {
+//     this.name = name;
+//     this.id = ++Peeps.count;
+//   }
+// }
+// const John = new Peeps('John');
+// const Steve = new Peeps('Steve');
+// const Ammy = new Peeps('AMy');
+// console.log(Ammy.id);
+// console.log(Steve.id);
+// console.log(John.id);
+// console.log(Peeps.count);
+// ///////////////////////////////////
+// class Bands {
+//   private dataState: string[];
+//   constructor() {
+//     this.dataState = [];
+//   }
+//   public get data(): string[] {
+//     return this.dataState;
+//   }
+//   public set data(value: string[]) {
+//     if (Array.isArray(value) && value.every((el) => typeof el === 'string')) {
+//       this.dataState = value;
+//       return;
+//     } else trow new Error("Param is not an array of strings")
+//   }
+// }
+// const MyBands = new Bands()
+// MyBands.data = ["Neil Young", "Led Zep"]
+// console.log(MyBands.data);
+// MyBands.data = ["Van Halen", 5150];
 // write a blog introductin on javascript
 // //########################### Turorial - 5
 // // Type Assertion
